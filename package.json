@@ -1,18 +1,10 @@
 {
   "name": "@byteboost/logger",
-  "version": "1.2.5-test.0",
+  "version": "1.2.6",
   "description": "Lightweight logger package",
- "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js",
-      "types": "./dist/types/index.d.ts"
-    }
-  },
-   "files": [
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
     "dist/**/*"
   ],
   "scripts": {
