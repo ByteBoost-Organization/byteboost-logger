@@ -4,7 +4,7 @@ set -e
 
 branchName=$(eval "git rev-parse --abbrev-ref HEAD")
 
-npm run build
+npm run build:cjs
 
 npm version prerelease --preid=$branchName
 
