@@ -167,11 +167,14 @@ export class Logger {
   }
 
   private shouldPrint(level: LoggerLevels) {
-    return (
-      !this.options.silent ||
-      (typeof this.options.silent === 'object' &&
-        !this.options.silent.includes(level))
-    );
+    if (
+      typeof this.options.silent === 'boolean' ||
+      typeof this.options.silent === 'undefined'
+    ) {
+      return this.options.silent;
+    }
+
+    return this.options.silent.includes(level);
   }
 
   private notify(msg: string, level: LoggerLevels, caller: string) {
