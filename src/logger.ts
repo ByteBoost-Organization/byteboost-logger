@@ -45,6 +45,8 @@ export let globalLoggerOptions: LoggerOptions = {
 };
 
 export class Logger {
+  private static registeredLoggers: Logger[];
+
   private options: LoggerOptions;
   private emailTransport?: Transporter;
   private fileStream?: FileStream;
@@ -78,6 +80,8 @@ export class Logger {
     }
 
     if (this.options.file) this.fileStream = new FileStream(this.options.file);
+
+    Logger.registeredLoggers.push(this);
   }
 
   private determineColor(color: string | undefined): string {
