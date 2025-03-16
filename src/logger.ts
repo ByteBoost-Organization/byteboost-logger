@@ -45,6 +45,8 @@ export let globalLoggerOptions: LoggerOptions = {
 };
 
 export class Logger {
+  private static registeredLoggers: Logger[];
+
   private options: LoggerOptions;
   private emailTransport?: Transporter;
   private fileStream?: FileStream;
@@ -78,6 +80,8 @@ export class Logger {
     }
 
     if (this.options.file) this.fileStream = new FileStream(this.options.file);
+
+    Logger.registeredLoggers.push(this);
   }
 
   private determineColor(color: string | undefined): string {
@@ -167,11 +171,14 @@ export class Logger {
   }
 
   private shouldPrint(level: LoggerLevels) {
-    return (
-      !this.options.silent ||
-      (typeof this.options.silent === 'object' &&
-        !this.options.silent.includes(level))
-    );
+    if (
+      typeof this.options.silent === 'boolean' ||
+      typeof this.options.silent === 'undefined'
+    ) {
+      return this.options.silent;
+    }
+
+    return this.options.silent.includes(level);
   }
 
   private notify(msg: string, level: LoggerLevels, caller: string) {
